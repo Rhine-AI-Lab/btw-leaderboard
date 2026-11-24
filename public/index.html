@@ -1,0 +1,354 @@
+<title>Bench the Weights Leaderboard</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Leaderboard for Bench the Weights: can a coding agent repair a corrupted neural network by editing its weights directly?">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one 1120px column. Lede and three headline numbers, then the ranked table (the point of the page),
+   then a models x domains matrix, then the two ways to take part.
+   Rhine AI Lab tokens, as in the results post: paper ground, carmine accent, beige rules, square corners. */
+:root {
+  --paper: #f7f5f1; --paper-2: #efe3db; --beige: #e3cdc0; --ink: #141414; --ink-2: #4a4440; --ink-3: #6b635b;
+  --rule: #e3cdc0; --accent: #960018; --accent-deep: #7a0013; --pos: #1f4e5f; --cell-mid: #ece5de;
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body: "Literata", Georgia, serif;
+  --ui: "Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #161413; --paper-2: #221e1c; --beige: #3a3330; --ink: #f2ede7; --ink-2: #cbc2ba; --ink-3: #a1978e;
+  --rule: #3a3330; --accent: #e8566a; --accent-deep: #f07c8c; --pos: #9fcadb; --cell-mid: #2a2522; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --paper: #161413; --paper-2: #221e1c; --beige: #3a3330; --ink: #f2ede7; --ink-2: #cbc2ba; --ink-3: #a1978e;
+  --rule: #3a3330; --accent: #e8566a; --accent-deep: #f07c8c; --pos: #9fcadb; --cell-mid: #2a2522; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--body); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 64px;
+}
+main, .site, .site-foot { max-width: 1120px; margin-inline: auto; }
+a { color: var(--accent); text-underline-offset: .2em; text-decoration-thickness: 1px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+::selection { background: var(--accent); color: var(--paper); }
+h1, h2, h3 { font-family: var(--display); font-weight: 600; color: var(--ink); text-wrap: balance; margin: 0; }
+p { margin: 0; text-wrap: pretty; }
+code, .mono { font-family: var(--mono); font-size: .86em; }
+
+/* ---------- Header ---------- */
+.site { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; border-bottom: 1px solid var(--rule); flex-wrap: wrap; }
+.brand { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; font: 600 21px/1 var(--display); white-space: nowrap; }
+.brand .mk { width: 34px; height: 34px; flex: none; }
+.brand span { color: var(--ink-3); font-weight: 500; }
+.site nav { display: flex; gap: 22px; flex-wrap: wrap; font: 15px var(--ui); }
+.site nav a { color: var(--ink-2); text-decoration: none; }
+.site nav a:hover { color: var(--ink); }
+.site nav a[aria-current="page"] { color: var(--ink); box-shadow: inset 0 -2px 0 var(--accent); }
+
+/* ---------- Lede ---------- */
+.top { padding-top: 56px; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 40px 64px; align-items: end; }
+.eyebrow { font: 500 13px var(--mono); color: var(--accent); margin-bottom: 14px; }
+h1 { font-size: clamp(34px, 5vw, 56px); line-height: 1.04; letter-spacing: -.02em; margin-bottom: 20px; }
+.lede { font-size: 17px; line-height: 1.6; color: var(--ink-2); max-width: 60ch; }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1.5px solid var(--ink); }
+.facts div { padding: 14px 12px 0 0; min-width: 0; }
+.facts dt { font: 500 12px var(--ui); color: var(--ink-3); }
+.facts dd { margin: 6px 0 0; font: 600 30px/1 var(--display); font-variant-numeric: tabular-nums; }
+.facts dd small { display: block; margin-top: 6px; font: 12px/1.35 var(--ui); color: var(--ink-3); }
+
+/* ---------- Section heads ---------- */
+section { margin-top: 72px; }
+.sh { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px 24px; flex-wrap: wrap; margin-bottom: 18px; }
+.sh h2 { font-size: clamp(24px, 2.6vw, 31px); letter-spacing: -.012em; }
+.sh p { font: 14px/1.5 var(--ui); color: var(--ink-3); margin-top: 6px; max-width: 70ch; }
+
+.seg { display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px; background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.seg button { font: 500 13px var(--ui); color: var(--ink-2); background: none; border: 0; border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+.seg button:hover { color: var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--paper); color: var(--ink); box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+
+/* ---------- Table ---------- */
+.scroll-x { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-family: var(--ui); font-size: 14.5px; }
+.lb { min-width: 900px; }
+th, td { text-align: left; padding: 13px 14px 13px 0; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+thead th { font-weight: 500; font-size: 12.5px; color: var(--ink-3); border-bottom: 1.5px solid var(--ink); white-space: nowrap; padding-block: 10px; }
+thead th button { all: unset; cursor: pointer; display: inline-flex; gap: 4px; align-items: center; }
+thead th button:hover { color: var(--ink); }
+thead th button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+thead th[aria-sort] button { color: var(--ink); }
+thead th[aria-sort="descending"] button::after { content: "↓"; }
+thead th[aria-sort="ascending"] button::after { content: "↑"; }
+th.r, td.r { text-align: right; }
+th.r button { justify-content: flex-end; }
+td:first-child, th:first-child { padding-left: 10px; }
+tbody tr:hover { background: var(--paper-2); }
+td.n { font-family: var(--mono); font-size: 13.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rk { width: 52px; font-family: var(--mono); color: var(--ink-3); }
+tbody tr.lead td.rk { color: var(--accent); font-weight: 500; }
+.mdl { display: flex; align-items: center; gap: 12px; }
+.lg { width: 22px; height: 22px; flex: none; color: var(--ink); }
+.mdl b { display: block; font-weight: 500; color: var(--ink); }
+.mdl small { display: block; font: 11.5px var(--mono); color: var(--ink-3); margin-top: 2px; }
+.tag { display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 999px; font: 500 10.5px var(--ui); color: var(--ink-2); background: var(--cell-mid); vertical-align: 1px; }
+.meter { display: inline-flex; align-items: center; gap: 12px; justify-content: flex-end; }
+.meter .t { position: relative; width: 120px; height: 6px; background: var(--cell-mid); }
+.meter .t i { position: absolute; inset: 0 auto 0 0; }
+.meter .t s { position: absolute; top: -3px; bottom: -3px; border-inline: 1.5px solid var(--ink); }
+.meter .t s::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--ink); }
+.meter b { min-width: 3.4em; text-align: right; font-weight: 500; color: var(--ink); }
+.meter small { display: block; font-size: 11px; color: var(--ink-3); }
+.dash { color: var(--ink-3); }
+.cap { font: 13.5px/1.55 var(--ui); color: var(--ink-2); margin-top: 14px; max-width: 92ch; }
+.cap b { font-weight: 500; color: var(--ink); }
+.empty { padding: 40px 10px; font: 14px var(--ui); color: var(--ink-3); }
+
+/* ---------- Domain matrix ---------- */
+.dm { min-width: 820px; border-collapse: separate; border-spacing: 4px; table-layout: fixed; }
+.dm th, .dm td { border: 0; padding: 0; }
+.dm thead th { font: 500 12px/1.3 var(--ui); color: var(--ink-2); padding: 0 6px 6px; white-space: normal; vertical-align: bottom; border: 0; }
+.dm thead th small { display: block; font: 11px var(--mono); color: var(--ink-3); }
+.dm thead th:first-child { width: 190px; }
+.dm tbody th { font: 500 13.5px var(--ui); white-space: nowrap; padding-right: 8px; }
+.dm tbody th .mdl { gap: 8px; }
+.dm tbody th .lg { width: 16px; height: 16px; }
+.dm tbody tr:hover { background: none; }
+.dm td { height: 34px; text-align: center; font: 12.5px var(--mono); font-variant-numeric: tabular-nums; border-radius: 4px; }
+.dm td.na { color: var(--ink-3); box-shadow: inset 0 0 0 1px var(--rule); }
+.scale { display: flex; align-items: center; gap: 8px; font: 12px var(--mono); color: var(--ink-3); }
+.scale i { display: block; width: 140px; height: 8px; border-radius: 2px; background: linear-gradient(90deg, var(--cell-mid), var(--pos)); }
+
+/* ---------- Take part ---------- */
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+.card { border-top: 2px solid var(--accent); padding-top: 16px; min-width: 0; }
+.card h3 { font-size: 22px; margin-bottom: 8px; }
+.card p { font-size: 15px; color: var(--ink-2); margin-bottom: 12px; }
+.card ul { margin: 0 0 14px; padding-left: 20px; font: 14.5px/1.55 var(--ui); color: var(--ink-2); }
+.card li { margin-bottom: 4px; }
+.soon { display: inline-flex; align-items: center; gap: 8px; font: 500 13px var(--ui); color: var(--ink-2); background: var(--paper-2); border-radius: 999px; padding: 7px 14px; }
+
+.site-foot { margin-top: 88px; padding-top: 28px; border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; font: 14px var(--ui); color: var(--ink-2); }
+.site-foot a { color: var(--ink-2); }
+
+@media (max-width: 860px) {
+  .top { grid-template-columns: minmax(0, 1fr); padding-top: 36px; }
+  .two { grid-template-columns: minmax(0, 1fr); }
+  section { margin-top: 56px; }
+}
+@media (max-width: 480px) { .facts dd { font-size: 24px; } .site nav { gap: 14px; font-size: 14px; } }
+</style>
+
+<header class="site">
+  <a class="brand" href="#top" aria-label="Bench the Weights, top of page"><svg class="mk" viewBox="120 120 627 620" aria-hidden="true"><path d="M158 674L155 671L145 657L133 633L125 607L120 578L121 267L123 251L127 236L132 222L139 207L147 193L155 182L168 167L181 156L193 147L205 140L222 132L236 127L252 123L265 121L283 120L435 120L419 221L411 283L408 319L407 338L408 363L410 391L406 408L402 419L396 428L388 436L348 460L323 477L300 495L281 514L259 540L203 617L158 674Z" fill="#e3cdc0"/><path d="M554 432L531 431L513 429L494 425L477 419L465 412L455 403L447 391L443 379L441 363L441 343L443 311L446 286L460 202L475 125L476 121L477 120L584 120L601 121L615 123L631 127L645 132L658 138L674 147L686 156L700 168L712 182L720 193L732 215L740 236L743 248L746 266L747 283L747 393L746 394L724 396L705 399L671 407L599 426L576 430L554 432Z" fill="#e3cdc0"/><path d="M169 694L173 690L220 634L285 550L301 532L318 516L330 507L350 493L406 460L417 451L428 438L434 434L441 435L465 447L476 451L491 455L509 458L530 460L557 460L581 457L601 453L627 446L680 430L707 423L728 419L747 417L747 578C747 580.65 746.93 583.3 746.8 585.95C746.67 588.6 746.48 591.24 746.22 593.88C745.96 596.52 745.64 599.15 745.25 601.77C744.86 604.39 744.4 607 743.89 609.6C743.37 612.2 742.79 614.79 742.14 617.36C741.5 619.93 740.79 622.49 740.02 625.03C739.25 627.56 738.42 630.08 737.53 632.58C736.64 635.07 735.68 637.55 734.67 639.99C733.65 642.44 732.58 644.87 731.45 647.26C730.31 649.66 729.12 652.03 727.87 654.37C726.62 656.7 725.32 659.01 723.95 661.28C722.59 663.56 721.17 665.8 719.7 668C718.23 670.21 716.7 672.37 715.12 674.5C713.54 676.63 711.91 678.72 710.23 680.77C708.55 682.82 706.81 684.83 705.03 686.79C703.25 688.76 701.43 690.68 699.55 692.55C697.68 694.43 695.76 696.25 693.79 698.03C691.83 699.81 689.82 701.55 687.77 703.23C685.72 704.91 683.63 706.54 681.5 708.12C679.37 709.7 677.21 711.23 675 712.7C672.8 714.17 670.56 715.59 668.28 716.95C666.01 718.31 663.7 719.62 661.37 720.87C659.03 722.12 656.66 723.31 654.26 724.45C651.87 725.58 649.44 726.65 646.99 727.67C644.55 728.68 642.07 729.64 639.58 730.53C637.08 731.42 634.56 732.25 632.03 733.02C629.49 733.79 626.93 734.5 624.36 735.15C621.79 735.79 619.21 736.37 616.6 736.89C614 737.4 611.39 737.86 608.77 738.25C606.15 738.64 603.52 738.96 600.88 739.22C598.24 739.48 595.6 739.67 592.95 739.8C590.3 739.93 587.65 740 585 740L282 740C276.78 740 271.58 739.74 266.39 739.24C261.2 738.73 256.04 737.98 250.92 736.97C245.8 735.97 240.75 734.72 235.75 733.23C230.75 731.74 225.84 730.01 221 728.04C216.17 726.08 211.45 723.88 206.83 721.46C202.21 719.04 197.72 716.4 193.35 713.54C188.99 710.68 184.77 707.62 180.71 704.36C176.64 701.09 172.73 697.64 169 694Z" fill="#960018"/></svg>Bench the Weights <span>by Rhine AI Lab</span></a>
+  <nav aria-label="Main"><a href="#leaderboard" aria-current="page">Leaderboard</a><a href="#domains">By domain</a><a href="#take-part">Take part</a></nav>
+</header>
+
+<main id="top">
+  <div class="top">
+    <div>
+      <p class="eyebrow">Held-out set · protocol v1</p>
+      <h1>Can an agent repair a broken network by editing its weights?</h1>
+      <p class="lede">Each problem is a trained network with a hidden, hand-crafted corruption. The agent gets the weights, a dev set, 25 minutes and 50 forward passes. No gradients, no training. It is scored on a hidden split by how much of the lost performance it wins back.</p>
+    </div>
+    <dl class="facts" id="facts">
+      <div><dt>Problems</dt><dd>42<small>7 domains</small></dd></div>
+      <div><dt>Models</dt><dd id="f-models">–<small>2 seeds each</small></dd></div>
+      <div><dt>Best recovery</dt><dd id="f-best">–<small id="f-best-who">&nbsp;</small></dd></div>
+    </dl>
+  </div>
+
+  <section id="leaderboard" aria-labelledby="lb-h">
+    <div class="sh">
+      <div>
+        <h2 id="lb-h">Leaderboard</h2>
+        <p>Recovery = (repaired − corrupted) / (original − corrupted), averaged over problems, then over seeds. A problem counts as solved at 75% recovery or more.</p>
+      </div>
+      <div class="seg" role="group" aria-label="Filter by provider" id="prov"></div>
+    </div>
+    <div class="scroll-x">
+      <table class="lb">
+        <thead><tr>
+          <th class="rk">Rank</th>
+          <th><button type="button" data-k="name">Model</button></th>
+          <th class="r" aria-sort="descending"><button type="button" data-k="rec">Mean recovery</button></th>
+          <th class="r"><button type="button" data-k="sol">Solved</button></th>
+          <th class="r"><button type="button" data-k="released">Released</button></th>
+          <th class="r"><button type="button" data-k="time">Time</button></th>
+          <th class="r"><button type="button" data-k="passes">Passes</button></th>
+          <th class="r"><button type="button" data-k="tok">Output tokens</button></th>
+        </tr></thead>
+        <tbody id="lb"><tr><td colspan="8" class="empty">Loading results…</td></tr></tbody>
+      </table>
+    </div>
+    <p class="cap"><b>How to read it.</b> Each model ran twice on every problem (two seeds) at its highest reasoning effort, in its own vendor's coding agent. The bar is the mean over seeds; the whisker spans the two seeds. Solved is the mean number of problems solved per seed. Time, passes and output tokens are medians per trial, of the 25-minute clock and the 50 forward passes allowed. <span id="cap-gem"></span></p>
+  </section>
+
+  <section id="domains" aria-labelledby="dm-h">
+    <div class="sh">
+      <div>
+        <h2 id="dm-h">Recovery by domain</h2>
+        <p>Mean recovery per domain, over both seeds. Domains are small, so read single cells with care; the count under each heading is the number of problems.</p>
+      </div>
+      <div class="scale" aria-hidden="true">0%<i></i>100%</div>
+    </div>
+    <div class="scroll-x"><table class="dm" id="dm"></table></div>
+  </section>
+
+  <section id="take-part" aria-labelledby="tp-h">
+    <div class="sh"><div><h2 id="tp-h">Take part</h2><p>The problems stay private, so the benchmark measures repair, not recall. There are two ways in.</p></div></div>
+    <div class="two">
+      <div class="card" id="contribute">
+        <h3>Contribute a problem</h3>
+        <p>Have you broken a network in a way an agent should be able to diagnose? Send it to us. If it passes our checks it joins the held-out set, and you are credited.</p>
+        <ul>
+          <li>The original network, public on Hugging Face</li>
+          <li>Your corrupted weights, in a private repository you share with us</li>
+          <li>The dev and test data, and the evaluation that scores them</li>
+          <li>A short note on the corruption and how you would repair it</li>
+        </ul>
+        <span class="soon">Submission form opens soon</span>
+      </div>
+      <div class="card" id="evaluate">
+        <h3>Get your model evaluated</h3>
+        <p>We run every model ourselves, on the private set, under the same protocol, and publish the result here. Tell us how we can reach your model.</p>
+        <ul>
+          <li>An API endpoint, or open weights we can serve</li>
+          <li>The coding agent it should run in, if not one we support</li>
+          <li>Whether the result can be published, and when</li>
+        </ul>
+        <span class="soon">Request form opens soon</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <span>Bench the Weights · Rhine AI Lab, University of Basel</span>
+  <span id="upd"></span>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var D, sortK = "rec", sortDir = -1, prov = "All";
+  function el(t, c, h) { var e = document.createElement(t); if (c) e.className = c; if (h != null) e.innerHTML = h; return e; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function pct(x, d) { return (x * 100).toFixed(d == null ? 1 : d) + "%"; }
+  function mean(a) { return a.reduce(function (s, x) { return s + x; }, 0) / a.length; }
+  function isDark() {
+    var t = document.documentElement.getAttribute("data-theme");
+    if (t === "dark") return true; if (t === "light") return false;
+    return !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  }
+  function col(m) { return isDark() ? m.color.dark : m.color.light; }
+  function logo(m) { var p = D.logos[m.logo]; return p ? '<svg class="lg" viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true">' + p + "</svg>" : ""; }
+  var MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function fmtDay(d) { return d ? +d.slice(8) + " " + MON[+d.slice(5, 7) - 1] + " " + d.slice(0, 4) : "–"; }
+  function fmtTime(s) { var m = Math.floor(s / 60), r = Math.round(s % 60); return m + "m" + (r < 10 ? "0" : "") + r + "s"; }
+  function fmtTok(t) { return (t / 1000).toFixed(t < 10000 ? 1 : 0) + "k"; }
+
+  function prep() {
+    D.models.forEach(function (m) {
+      m.rec = mean(m.recovery_per_seed);
+      m.recLo = Math.min.apply(null, m.recovery_per_seed); m.recHi = Math.max.apply(null, m.recovery_per_seed);
+      m.solK = mean(m.solved_per_seed);
+      m.sol = m.solK / m.problems;
+      var t = m.median_trial || {};
+      m.time = t.time; m.passes = t.passes; m.tok = t.tok;
+    });
+    // Official rank: mean recovery, ties broken by solved share. Fixed regardless of the sort or filter shown.
+    D.models.slice().sort(function (a, b) { return b.rec - a.rec || b.sol - a.sol; }).forEach(function (m, i) { m.rank = i + 1; });
+  }
+
+  function val(m, k) { return k === "name" ? m.name.toLowerCase() : m[k]; }
+  function drawTable() {
+    var tb = document.getElementById("lb"); tb.innerHTML = "";
+    var rows = D.models.filter(function (m) { return prov === "All" || m.provider === prov; });
+    rows.sort(function (a, b) {
+      var x = val(a, sortK), y = val(b, sortK);
+      if (x == null && y == null) return a.rank - b.rank; if (x == null) return 1; if (y == null) return -1;
+      return (x < y ? -1 : x > y ? 1 : 0) * sortDir || a.rank - b.rank;
+    });
+    var d = '<span class="dash">–</span>';
+    rows.forEach(function (m) {
+      var tr = el("tr", m.rank === 1 ? "lead" : null);
+      var partial = m.problems < D.problems ? " †" : "";
+      tr.innerHTML =
+        '<td class="rk">' + m.rank + "</td>" +
+        '<td><div class="mdl">' + logo(m) + "<div><b>" + esc(m.name) + (m.preview ? '<span class="tag">preview</span>' : "") + "</b><small>" + esc(m.provider) + " · " + esc(m.harness) + "</small></div></div></td>" +
+        '<td class="n r"><div class="meter" title="Seeds: ' + m.recovery_per_seed.map(function (x) { return pct(x); }).join(", ") + '"><div class="t"><i style="width:' + Math.max(0, Math.min(100, m.rec * 100)) + "%;background:" + col(m) + '"></i>' +
+          (m.recovery_per_seed.length > 1 ? '<s style="left:' + Math.max(0, m.recLo * 100) + "%;width:" + Math.max(0, (m.recHi - m.recLo) * 100) + '%"></s>' : "") +
+          "</div><b>" + pct(m.rec) + "<small>" + m.recovery_per_seed.map(function (x) { return (x * 100).toFixed(1); }).join(" · ") + "</small></b></div></td>" +
+        '<td class="n r">' + pct(m.sol, 0) + '<small style="display:block;font-size:11px;color:var(--ink-3)">' + m.solK.toFixed(1).replace(/\.0$/, "") + " of " + m.problems + partial + "</small></td>" +
+        '<td class="n r">' + fmtDay(m.released) + "</td>" +
+        '<td class="n r">' + (m.time != null ? fmtTime(m.time) : d) + "</td>" +
+        '<td class="n r">' + (m.passes != null ? Math.round(m.passes) : d) + "</td>" +
+        '<td class="n r">' + (m.tok != null ? fmtTok(m.tok) : d) + "</td>";
+      tb.appendChild(tr);
+    });
+    document.querySelectorAll(".lb thead th").forEach(function (th) {
+      var b = th.querySelector("button");
+      if (b && b.dataset.k === sortK) th.setAttribute("aria-sort", sortDir < 0 ? "descending" : "ascending"); else th.removeAttribute("aria-sort");
+    });
+  }
+
+  function drawProv() {
+    var box = document.getElementById("prov"), seen = ["All"];
+    D.models.forEach(function (m) { if (seen.indexOf(m.provider) < 0) seen.push(m.provider); });
+    seen.forEach(function (p) {
+      var b = el("button", null, esc(p)); b.type = "button"; b.setAttribute("aria-pressed", p === prov ? "true" : "false");
+      b.addEventListener("click", function () { prov = p; box.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); }); drawTable(); });
+      box.appendChild(b);
+    });
+  }
+
+  function drawDomains() {
+    var t = document.getElementById("dm"), doms = D.domains;
+    var h = "<thead><tr><th>Model</th>" + doms.map(function (d) { return "<th>" + esc(d) + "<small>" + D.domain_sizes[d] + "</small></th>"; }).join("") + "</tr></thead><tbody>";
+    var dark = isDark();
+    D.models.slice().sort(function (a, b) { return a.rank - b.rank; }).forEach(function (m) {
+      h += '<tr><th><div class="mdl">' + logo(m) + "<span>" + esc(m.name) + "</span></div></th>";
+      doms.forEach(function (d) {
+        var v = m.domains[d], n = m.domain_counts[d], full = D.domain_sizes[d];
+        if (v == null) { h += '<td class="na" title="Not run">–</td>'; return; }
+        var k = Math.round(Math.max(0, Math.min(1, v)) * 100);
+        var fg = k > 55 ? (dark ? "var(--paper)" : "#fff") : "var(--ink)";
+        h += '<td style="background:color-mix(in oklab, var(--pos) ' + k + '%, var(--cell-mid));color:' + fg + '" title="' + esc(m.name) + " · " + esc(d) + ": " + pct(v) + (n < full ? " (" + n + " of " + full + " problems)" : "") + '">' + Math.round(v * 100) + (n < full ? "†" : "") + "</td>";
+      });
+      h += "</tr>";
+    });
+    t.innerHTML = h + "</tbody>";
+  }
+
+  function drawFacts() {
+    var best = D.models.filter(function (m) { return m.rank === 1; })[0];
+    document.getElementById("f-models").innerHTML = D.models.length + "<small>2 seeds each</small>";
+    document.getElementById("f-best").innerHTML = pct(best.rec, 0) + "<small>" + esc(best.name) + "</small>";
+    var part = D.models.filter(function (m) { return m.problems < D.problems; });
+    if (part.length) document.getElementById("cap-gem").textContent = "† " + part.map(function (m) { return m.name; }).join(", ") + " did not run one problem, so their means are over the other " + part[0].problems + ".";
+    document.getElementById("upd").textContent = "Updated " + fmtDay(D.updated);
+  }
+
+  document.querySelectorAll(".lb thead th button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var k = b.dataset.k;
+      if (k === sortK) sortDir = -sortDir; else { sortK = k; sortDir = k === "name" ? 1 : -1; }
+      drawTable();
+    });
+  });
+
+  fetch("data/leaderboard.json").then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+    D = d; prep(); drawFacts(); drawProv(); drawTable(); drawDomains();
+    if (window.matchMedia) window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function () { drawTable(); drawDomains(); });
+  }).catch(function () {
+    document.getElementById("lb").innerHTML = '<tr><td colspan="8" class="empty">The results file did not load. Reload the page to try again.</td></tr>';
+  });
+})();
+</script>
