@@ -641,15 +641,15 @@
    "effort": "highest available",
    "released": "2026-11-12",
    "recovery_per_seed": [
-    0.2867,
-    0.3044
+    0.2799,
+    0.2971
    ],
    "solved_per_seed": [
     6,
     7
    ],
-   "problems": 41,
-   "problems_run": 41,
+   "problems": 42,
+   "problems_run": 42,
    "per_problem": [
     0.7729,
     0.0988,
@@ -681,7 +681,7 @@
     0.2892,
     0.0,
     0.3342,
-    null,
+    0.0,
     0.0,
     0.0088,
     0.2239,
@@ -698,7 +698,7 @@
     "Image classification": 0.352,
     "Language": 0.2803,
     "Speech and audio": 0.2942,
-    "Dense prediction": 0.1557,
+    "Dense prediction": 0.1038,
     "Image generation": 0.3871,
     "Vision and language": 0.0494,
     "Science": 0.3553
@@ -707,16 +707,17 @@
     "Image classification": 13,
     "Language": 17,
     "Speech and audio": 3,
-    "Dense prediction": 2,
+    "Dense prediction": 3,
     "Image generation": 2,
     "Vision and language": 2,
     "Science": 2
    },
    "median_trial": {
-    "time": 1532.17,
+    "time": 1532.7,
     "passes": 15.0,
     "calls": 139.0,
-    "tok": 215883.5
+    "tok": 215883.5,
+    "note": "calls and tokens over the other 41 problems (Antigravity logs)"
    },
    "color": {
     "light": "#8a1f6b",
@@ -733,15 +734,15 @@
    "effort": "highest available",
    "released": "2026-11-18",
    "recovery_per_seed": [
-    0.2309,
-    0.3357
+    0.2254,
+    0.3281
    ],
    "solved_per_seed": [
     14,
     10
    ],
-   "problems": 41,
-   "problems_run": 41,
+   "problems": 42,
+   "problems_run": 42,
    "per_problem": [
     0.8862,
     0.0668,
@@ -773,7 +774,7 @@
     0.333,
     0.0864,
     0.1532,
-    null,
+    0.0073,
     0.5,
     0.0175,
     0.3089,
@@ -790,7 +791,7 @@
     "Image classification": 0.4922,
     "Language": 0.387,
     "Speech and audio": -0.9461,
-    "Dense prediction": 0.0,
+    "Dense prediction": 0.0024,
     "Image generation": 0.4751,
     "Vision and language": 0.0334,
     "Science": 0.2291
@@ -799,16 +800,17 @@
     "Image classification": 13,
     "Language": 17,
     "Speech and audio": 3,
-    "Dense prediction": 2,
+    "Dense prediction": 3,
     "Image generation": 2,
     "Vision and language": 2,
     "Science": 2
    },
    "median_trial": {
-    "time": 1551.89,
+    "time": 1551.9,
     "passes": 11.0,
     "calls": 81.5,
-    "tok": 133890.0
+    "tok": 133890.0,
+    "note": "calls and tokens over the other 41 problems (Antigravity logs)"
    },
    "color": {
     "light": "#c2358f",
@@ -917,15 +919,15 @@
    "effort": "highest available",
    "released": "2026-10-28",
    "recovery_per_seed": [
-    0.2418,
-    0.166
+    0.2361,
+    0.1641
    ],
    "solved_per_seed": [
     7,
     5
    ],
-   "problems": 41,
-   "problems_run": 41,
+   "problems": 42,
+   "problems_run": 42,
    "per_problem": [
     0.6429,
     0.0327,
@@ -957,7 +959,7 @@
     0.1472,
     -0.008,
     0.6615,
-    null,
+    0.042,
     0.5,
     0.0186,
     0.0092,
@@ -974,7 +976,7 @@
     "Image classification": 0.1979,
     "Language": 0.2159,
     "Speech and audio": 0.2819,
-    "Dense prediction": 0.0733,
+    "Dense prediction": 0.0629,
     "Image generation": 0.323,
     "Vision and language": 0.0165,
     "Science": 0.2232
@@ -983,16 +985,17 @@
     "Image classification": 13,
     "Language": 17,
     "Speech and audio": 3,
-    "Dense prediction": 2,
+    "Dense prediction": 3,
     "Image generation": 2,
     "Vision and language": 2,
     "Science": 2
    },
    "median_trial": {
-    "time": 1571.05,
+    "time": 1570.8,
     "passes": 8.0,
     "calls": 61.0,
-    "tok": 89689.5
+    "tok": 89689.5,
+    "note": "calls and tokens over the other 41 problems (Antigravity logs)"
    },
    "color": {
     "light": "#e07ab8",
@@ -1653,15 +1656,15 @@
    "effort": "highest available",
    "released": "2026-09-02",
    "recovery_per_seed": [
-    0.0534,
-    0.0686
+    0.0537,
+    0.067
    ],
    "solved_per_seed": [
     0,
     0
    ],
-   "problems": 41,
-   "problems_run": 41,
+   "problems": 42,
+   "problems_run": 42,
    "per_problem": [
     0.002,
     0.0196,
@@ -1693,7 +1696,7 @@
     0.1474,
     -0.0012,
     0.2993,
-    null,
+    0.031,
     0.0,
     0.0198,
     0.0032,
@@ -1710,7 +1713,7 @@
     "Image classification": 0.0416,
     "Language": 0.0726,
     "Speech and audio": 0.0138,
-    "Dense prediction": 0.0227,
+    "Dense prediction": 0.0255,
     "Image generation": 0.2573,
     "Vision and language": 0.0098,
     "Science": 0.0529
@@ -1719,16 +1722,17 @@
     "Image classification": 13,
     "Language": 17,
     "Speech and audio": 3,
-    "Dense prediction": 2,
+    "Dense prediction": 3,
     "Image generation": 2,
     "Vision and language": 2,
     "Science": 2
    },
    "median_trial": {
-    "time": 1422.49,
+    "time": 1428.0,
     "passes": 12.0,
     "calls": 170.5,
-    "tok": 97970.5
+    "tok": 97970.5,
+    "note": "calls and tokens over the other 41 problems (Antigravity logs)"
    },
    "color": {
     "light": "#9c6b8c",
