@@ -1138,7 +1138,7 @@ form.tried .choice input:invalid + span b { color: var(--err); }
 .lift-logo.rep .l-lift { animation: lg-lift .9s cubic-bezier(.45, 0, .25, 1); }
 .lift-logo.rep .l-arm { animation: lg-arm .9s cubic-bezier(.45, 0, .25, 1); }
 .lift-logo.rep .l-eff { animation: lg-eff .9s ease; }
-:root[data-design="banner"] .wordmark .lift-logo { width: 1.12em; height: 1.12em; margin: 0 .1em 0 -.03em; vertical-align: -.2em; cursor: default; }
+:root[data-design="banner"] .wordmark .lift-logo { width: 1.05em; height: 1.05em; margin: 0 0 0 .14em; vertical-align: -.14em; cursor: default; filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .18)); }
 
 /* ---------- Banner: a network on the band; it runs forward passes, some weights break, a sweep repairs them ---------- */
 .hero-net { display: none; }
@@ -1213,6 +1213,7 @@ form.tried .choice input:invalid + span b { color: var(--err); }
 @media (hover: hover) and (pointer: fine) {
   :root[data-design="banner"] .hero .lk:hover { background: var(--band-ink); border-color: var(--band-ink); color: var(--band); }
 }
+@media (max-width: 600px) { .mast nav .nl { display: none; } :root[data-design="banner"] .mast nav { margin-left: -6px; } :root[data-design="banner"] .mast nav a { padding: 0 6px; font-size: 15.5px; letter-spacing: .02em; } :root[data-design="banner"] .mast nav a::after { left: 6px; right: 6px; } }
 button.lk { font: inherit; }
 :root[data-design="banner"] .lk { font: 600 14.5px/1 var(--ui); }
 .foot nav button.off { all: unset; display: inline-flex; align-items: center; gap: 8px; min-height: 34px; color: var(--ink-3); font-weight: 500; cursor: pointer; }
@@ -1246,8 +1247,9 @@ button.lk { font: inherit; }
     <nav aria-label="Main">
       <a href="#" data-view="board">Leaderboard</a>
       <a href="#contribute" data-view="contribute">Contribute</a>
-      <a href="#evaluate" data-view="evaluate">Evaluate a model</a>
+      <a href="#evaluate" data-view="evaluate">Evaluate<span class="nl">&nbsp;a model</span></a>
       <a href="#team" data-view="team">Team</a>
+      <a href="#sponsors">Sponsor</a>
     </nav>
   </div>
 </header>
@@ -1256,7 +1258,7 @@ button.lk { font: inherit; }
 <main class="wrap" id="v-board">
   <div class="hero" id="main">
     <div>
-      <p class="wordmark" aria-hidden="true"><span>Bench</span><span><i>the</i>Weights.</span><span class="wm-sub"><i>Repair</i></span></p>
+      <p class="wordmark" aria-hidden="true"><span>Bench<span class="lift-logo"><img src="logo-base.png" alt=""><img class="l-eff" src="logo-eff.png" alt=""><span class="l-arm"><img src="logo-arm.png" alt=""></span><img class="l-lift" src="logo-lift.png" alt=""></span></span><span><i>the</i>Weights.</span><span class="wm-sub"><i>Repair</i></span></p>
       <h1 class="poster"><span class="l">Can an agent fix a broken network</span><span class="l"><em>by editing its weights?</em></span></h1>
       <p class="lede">Each of the <b>42 problems</b> is a trained network with a hidden, hand-crafted bug, from image classifiers to speech and language models. The agent gets the weights, a dev set, <b>25 minutes</b> and <b>50 forward passes</b>. No gradients, no training. It solves a problem when it wins back at least 75% of the lost score on a hidden split.</p>
       <div class="links" data-links></div>
@@ -2034,6 +2036,7 @@ document.documentElement.classList.add("js");
     host.addEventListener("mouseenter", function () { over = true; if (!busy) rep(); });
     host.addEventListener("mouseleave", function () { over = false; });
     lg.querySelector(".l-lift").addEventListener("animationend", function () { busy = false; lg.classList.remove("rep"); if (over) rep(); });
+    if (host.classList.contains("wordmark")) setTimeout(rep, 700);
   });
 })();
 </script>
