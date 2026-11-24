@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-design="banner" data-theme="white">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -1191,89 +1191,55 @@ form.tried .choice input:invalid + span b { color: var(--err); }
   #sponsors { margin-top: 72px; }
   :root[data-design="banner"] .sponsor { padding: 28px 22px; border-radius: 14px; }
 }
+/* ---------- Final look: Banner with Big Shoulders ---------- */
+:root[data-design="banner"] { --display: "Big Shoulders Display", "Arial Narrow", sans-serif; --serif: "Big Shoulders Display", "Arial Narrow", sans-serif; --stencil: "Big Shoulders Stencil Display", "Big Shoulders Display", sans-serif; --ui: "Libre Franklin", "Helvetica Neue", Arial, sans-serif; }
+:root[data-design="banner"] :is(.wordmark i, .wordmark .wm-sub i, h1 em, .sh h2, .key > p, .sched h2, .sched .d, .slot .no, .lab b, .aside h1, .aside .dates .d, legend, .lb .rk, .sol b, .sol b small, .sponsor h2) { font-style: normal; font-weight: 800; }
+:root[data-design="banner"] :is(.aside, .sponsor) .steps li::before { font-style: normal; font-weight: 800; }
+:root[data-design="banner"] .wordmark { font-weight: 900; letter-spacing: -.01em; text-transform: uppercase; }
+:root[data-design="banner"] .wordmark i { font-size: .62em; margin: 0 .1em 0 0; color: var(--band-2); }
+:root[data-design="banner"] .wordmark .wm-sub { font-size: .38em; letter-spacing: .02em; }
+:root[data-design="banner"] h1.poster { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; text-transform: uppercase; letter-spacing: .01em; }
+:root[data-design="banner"] h1 em { font-size: 1em; color: var(--band-ink); text-decoration: underline 3px var(--band-2); text-underline-offset: .14em; }
+:root[data-design="banner"] :is(.sh h2, .sponsor h2, .aside h1, legend) { text-transform: uppercase; letter-spacing: .005em; }
+:root[data-design="banner"] .sh h2 { font-size: clamp(38px, 3.6vw, 52px); line-height: .95; }
+:root[data-design="banner"] .aside h1 { line-height: .92; }
+:root[data-design="banner"] .lb .rk, :root[data-design="banner"] .lb tr.top .rk { font-family: var(--stencil); font-size: 32px; }
+:root[data-design="banner"] .sol b, :root[data-design="banner"] .lb tr.top .sol b { font-family: var(--stencil); font-size: 36px; }
+:root[data-design="banner"] .brand { font: 900 22px/1 var(--display); text-transform: uppercase; letter-spacing: .01em; }
+:root[data-design="banner"] .mast nav a { font: 700 17px/1 var(--display); text-transform: uppercase; letter-spacing: .04em; }
+:root[data-design="banner"] .hero .links { margin-top: 20px; }
+:root[data-design="banner"] .hero .lk { border-color: var(--band-rule); color: var(--band-ink); background: transparent; }
+:root[data-design="banner"] .hero .lk.pri { background: var(--band-ink); border-color: var(--band-ink); color: var(--band); }
+@media (hover: hover) and (pointer: fine) {
+  :root[data-design="banner"] .hero .lk:hover { background: var(--band-ink); border-color: var(--band-ink); color: var(--band); }
+}
+button.lk { font: inherit; }
+:root[data-design="banner"] .lk { font: 600 14.5px/1 var(--ui); }
+.foot nav button.off { all: unset; display: inline-flex; align-items: center; gap: 8px; min-height: 34px; color: var(--ink-3); font-weight: 500; cursor: pointer; }
+.foot nav button.off:hover { color: var(--ink); }
+.foot nav button.off:focus-visible { outline: 2.5px solid var(--red); outline-offset: 3px; }
+.soon-dlg { width: min(440px, calc(100vw - 32px)); padding: 0; border: 1px solid var(--card-b, var(--rule-2)); border-radius: 20px; background: var(--paper-2); color: var(--ink); box-shadow: 0 30px 80px -20px rgba(0, 0, 0, .35); text-align: center; overflow: visible; }
+.soon-dlg form { position: relative; display: flex; flex-direction: column; align-items: center; gap: 0; padding: 30px 32px 28px; }
+.soon-dlg::backdrop { background: rgba(23, 18, 15, .5); }
+.soon-dlg .lift-logo { width: 132px; height: 132px; margin: -86px 0 6px; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .18)); }
+.soon-dlg h2:focus { outline: none; }
+.soon-dlg h2 { font: 900 38px/.95 var(--display); text-transform: uppercase; letter-spacing: .005em; color: var(--ink); }
+.soon-dlg p { margin-top: 12px; max-width: 34ch; font-size: 15.5px; line-height: 1.55; color: var(--ink-2); }
+.soon-dlg .dlg-act { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 22px; }
+.soon-dlg .lk { cursor: pointer; }
+.dlg-x { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; background: none; color: var(--ink-3); cursor: pointer; transition: background-color .15s ease, color .15s ease; }
+.dlg-x:hover { background: var(--paper-3); color: var(--ink); }
+.dlg-x svg { width: 16px; height: 16px; }
+.soon-dlg[open] { animation: dlg-in .22s var(--ease-out); }
+@keyframes dlg-in { from { opacity: 0; transform: translateY(8px) scale(.97); } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
 }
 </style>
-<script>(function(){var d=new URLSearchParams(location.search).get("design");if(d==null){try{d=localStorage.getItem("btw-look")}catch(e){}}if(["banner","basel","lab","rough","poster","dash"].indexOf(d)<0)d="banner";document.documentElement.dataset.design=d;var t=new URLSearchParams(location.search).get("bg");if(t==null){try{t=localStorage.getItem("btw-bg")}catch(e){}}if(t==="light"||t==="white"||t==="dark")document.documentElement.dataset.theme=t;})();</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to the results</a>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><filter id="rough" x="-3%" y="-12%" width="106%" height="124%"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
-<div class="fontpick" data-open="false">
-  <button type="button" class="fp-toggle" aria-expanded="false" aria-controls="fp-opts" title="Switch the page design"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h7m3 0h2M2 8h2m3 0h7M2 12h8m3 0h1M10.5 2.5v3M5.5 6.5v3M11.5 10.5v3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Design</span><b id="fp-cur"></b><svg class="chev" viewBox="0 0 10 6" aria-hidden="true"><path d="m1 5 4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-  <div class="fp-opts" id="fp-opts">
-    <p class="fp-h" id="fp-h-style">Style</p>
-    <div class="fp-g" id="sw-style" role="group" aria-labelledby="fp-h-style">
-      <button type="button" data-d="banner">Banner</button><button type="button" data-d="basel">Basel</button><button type="button" data-d="lab">Neo lab</button><button type="button" data-d="rough">Drastic v2</button><button type="button" data-d="poster">Drastic v1</button><button type="button" data-d="dash">Simple</button>
-    </div>
-    <div class="fp-band">
-      <p class="fp-h" id="fp-h-band">Banner colour</p>
-      <div class="fp-g fp-sw" id="sw-band" role="group" aria-labelledby="fp-h-band">
-        <button type="button" data-b=""><i style="background:#9b0f1c"></i>Red</button><button type="button" data-b="ink"><i style="background:#161210"></i>Black</button><button type="button" data-b="navy"><i style="background:#14223d"></i>Navy</button><button type="button" data-b="forest"><i style="background:#17392d"></i>Forest</button><button type="button" data-b="teal"><i style="background:#0f4347"></i>Teal</button><button type="button" data-b="slate"><i style="background:#2c3540"></i>Slate</button><button type="button" data-b="sand"><i style="background:#ebe1cf"></i>Sand</button><button type="button" data-b="yellow"><i style="background:#f3d046"></i>Yellow</button>
-      </div>
-    </div>
-    <p class="fp-h" id="fp-h-bg">Background</p>
-    <div class="fp-g fp-row" id="sw-bg" role="group" aria-labelledby="fp-h-bg">
-      <button type="button" data-t="light">Cream</button><button type="button" data-t="white">White</button><button type="button" data-t="dark">Black</button>
-    </div>
-    <div class="fp-font">
-      <p class="fp-h" id="fp-h-font">Heading font</p>
-      <div class="fp-g" id="sw-font" role="group" aria-labelledby="fp-h-font">
-        <button type="button" data-f="" style="font-family:'Big Shoulders Display'">Big Shoulders</button>
-        <button type="button" data-f="barlow" style="font-family:'Barlow Condensed'">Barlow Cond.</button>
-        <button type="button" data-f="antonio" style="font-family:'Antonio'">Antonio</button>
-        <button type="button" data-f="bricolage" style="font-family:'Bricolage Grotesque';font-variation-settings:'wdth' 75">Bricolage</button>
-        <button type="button" data-f="archivo" style="font-family:'Archivo Narrow'">Archivo Narrow</button>
-      </div>
-    </div>
-  </div>
-</div>
-<script>
-(function () {
-  var root = document.documentElement, mq = matchMedia("(prefers-color-scheme: dark)");
-  var f = new URLSearchParams(location.search).get("font");
-  if (f == null) { try { f = localStorage.getItem("btw-font"); } catch (e) {} }
-  if (f) root.dataset.font = f;
-  var bd = new URLSearchParams(location.search).get("band");
-  if (bd == null) { try { bd = localStorage.getItem("btw-band"); } catch (e) {} }
-  if (bd) root.dataset.band = bd;
-  var box = document.querySelector(".fontpick"), tg = box.querySelector(".fp-toggle");
-  var groups = [
-    { el: "#sw-style", key: "d", store: "btw-look", attr: "design", cur: function () { return root.dataset.design || "banner"; } },
-    { el: "#sw-bg", key: "t", store: "btw-bg", attr: "theme", cur: function () { return root.dataset.theme || (mq.matches ? "dark" : "light"); } },
-    { el: "#sw-band", key: "b", store: "btw-band", attr: "band", cur: function () { return root.dataset.band || ""; } },
-    { el: "#sw-font", key: "f", store: "btw-font", attr: "font", cur: function () { return root.dataset.font || ""; } }
-  ];
-  function sync() {
-    var label = [];
-    groups.forEach(function (g, i) {
-      var c = g.cur();
-      box.querySelectorAll(g.el + " button").forEach(function (b) {
-        var on = b.dataset[g.key] === c; b.setAttribute("aria-pressed", on ? "true" : "false");
-        if (on && i < 2) label.push(b.textContent);
-      });
-    });
-    document.getElementById("fp-cur").textContent = label.join(" · ");
-  }
-  groups.forEach(function (g) {
-    box.querySelectorAll(g.el + " button").forEach(function (b) {
-      b.addEventListener("click", function () {
-        var v = b.dataset[g.key];
-        if (v) root.dataset[g.attr] = v; else delete root.dataset[g.attr];
-        try { localStorage.setItem(g.store, v); } catch (e) {}
-        sync();
-      });
-    });
-  });
-  function setOpen(o) { box.dataset.open = o ? "true" : "false"; tg.setAttribute("aria-expanded", o ? "true" : "false"); }
-  tg.addEventListener("click", function () { setOpen(box.dataset.open !== "true"); });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && box.dataset.open === "true") { setOpen(false); tg.focus(); } });
-  document.addEventListener("pointerdown", function (e) { if (!box.contains(e.target)) setOpen(false); });
-  if (mq.addEventListener) mq.addEventListener("change", sync);
-  sync();
-})();
-</script>
 <header class="wrap">
   <div class="mast">
     <a class="brand" href="#" aria-label="Bench the Weights, leaderboard"><span class="lift-logo"><img src="logo-base.png" alt=""><img class="l-eff" src="logo-eff.png" alt=""><span class="l-arm"><img src="logo-arm.png" alt=""></span><img class="l-lift" src="logo-lift.png" alt=""></span>Bench the Weights</a>
@@ -1384,8 +1350,7 @@ form.tried .choice input:invalid + span b { color: var(--err); }
       <div>
         <h2 id="sp-h">Help us build the next versions</h2>
         <p>We are open to sponsors who want to support future versions of Bench the Weights.</p>
-        <a class="lk pri" href="mailto:ilija.bogunovic@unibas.ch?cc=robin.faro@unibas.ch,antonio.lopardo@unibas.ch,andrea.miele@unibas.ch,aurelien.lucchi@unibas.ch&amp;subject=Sponsoring%20Bench%20the%20Weights&amp;body=Hello%20Ilija%2C%0A%0AWe%20would%20like%20to%20talk%20about%20sponsoring%20Bench%20the%20Weights.%0A%0AOrganization%3A%0AWhat%20we%20would%20like%20to%20support%3A%0A%0ABest%20regards%2C%0A">Become a sponsor<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
-        <p class="sp-to">Opens an email to Ilija Bogunovic, with the team in copy.</p>
+        <a class="lk pri" href="mailto:ilija.bogunovic@unibas.ch?cc=robin.faro@unibas.ch,antonio.lopardo@unibas.ch,andrea.miele@unibas.ch,aurelien.lucchi@unibas.ch&amp;subject=Sponsoring%20Bench%20the%20Weights">Become a sponsor<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
       </div>
       <ol class="steps">
         <li>More tasks and networks</li>
@@ -1401,7 +1366,7 @@ form.tried .choice input:invalid + span b { color: var(--err); }
   <div class="page">
     <div class="aside">
       <h1>Team</h1>
-      <p class="lede">Bench the Weights is built at Rhine AI Lab, University of Basel.</p>
+      <p class="lede">Bench the Weights is built at Rhine AI Lab and the OMLS Group, University of Basel.</p>
     </div>
     <div id="team-list"></div>
   </div>
@@ -1613,6 +1578,16 @@ form.tried .choice input:invalid + span b { color: var(--err); }
 </main>
 
 
+<dialog class="soon-dlg" id="soon-dlg" aria-labelledby="soon-h">
+  <form method="dialog">
+    <button class="dlg-x" value="close" aria-label="Close"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+    <span class="lift-logo"><img src="logo-base.png" alt=""><img class="l-eff" src="logo-eff.png" alt=""><span class="l-arm"><img src="logo-arm.png" alt=""></span><img class="l-lift" src="logo-lift.png" alt=""></span>
+    <h2 id="soon-h" tabindex="-1" autofocus>The paper is coming soon</h2>
+    <p>We'll release it soon. Until then, the blog post covers the setup, the results and what the agents did.</p>
+    <div class="dlg-act"><a class="lk pri" href="https://rhinelab.ai/blog" target="_blank" rel="noopener">Read the blog post</a><button class="lk" value="close">Close</button></div>
+  </form>
+</dialog>
+
 <footer class="wrap foot">
   <div class="fbrand">
     <a class="brand" href="#"><img src="logo.png" alt="" width="36" height="36">Bench the Weights</a>
@@ -1620,7 +1595,7 @@ form.tried .choice input:invalid + span b { color: var(--err); }
   </div>
   <nav aria-label="Site"><h2>Site</h2><a href="#">Leaderboard</a><a href="#contribute">Contribute a problem</a><a href="#evaluate">Evaluate a model</a><a href="#team">Team</a></nav>
   <nav aria-label="Resources"><h2>Resources</h2><div data-links-foot></div></nav>
-  <div class="fmeta"><h2>Results</h2><p id="upd"></p><p>Rhine AI Lab, University of Basel</p></div>
+  <div class="fmeta"><h2>Results</h2><p id="upd"></p><p>Rhine AI Lab and OMLS Group, University of Basel</p></div>
 </footer>
 
 <script>
@@ -1630,16 +1605,16 @@ document.documentElement.classList.add("js");
   /* ---------- Content to fill in ---------- */
   // Links: an empty href shows the button as "soon".
   var LINKS = [
-    { k: "blog", label: "Read the blog post", short: "Blog post", href: "" },
-    { k: "paper", label: "Paper", short: "Paper", href: "" },
-    { k: "code", label: "Code", short: "Code", href: "" }
+    { k: "blog", label: "Read the blog post", short: "Blog post", href: "https://rhinelab.ai/blog" },
+    { k: "code", label: "Code", short: "Code", href: "https://github.com/Rhine-AI-Lab/BenchTheWeights" },
+    { k: "paper", label: "Paper", short: "Paper", href: "", soon: true }
   ];
   // Team: replace the placeholders. url is optional.
   var TEAM = [
-    { name: "Robin Faro", eq: true, org: "Rhine AI Lab, University of Basel", url: "mailto:robin.faro@unibas.ch" },
-    { name: "Antonio Lopardo", eq: true, org: "Rhine AI Lab, University of Basel", url: "mailto:antonio.lopardo@unibas.ch" },
+    { name: "Robin Faro", eq: true, org: "Rhine AI Lab and OMLS Group, University of Basel", url: "mailto:robin.faro@unibas.ch" },
+    { name: "Antonio Lopardo", eq: true, org: "OMLS Group and Rhine AI Lab, University of Basel", url: "mailto:antonio.lopardo@unibas.ch" },
     { name: "Andrea Miele", eq: true, org: "Rhine AI Lab, University of Basel", url: "mailto:andrea.miele@unibas.ch" },
-    { name: "Aurélien Lucchi", org: "Rhine AI Lab, University of Basel", url: "mailto:aurelien.lucchi@unibas.ch" },
+    { name: "Aurélien Lucchi", org: "OMLS Group, University of Basel", url: "mailto:aurelien.lucchi@unibas.ch" },
     { name: "Ilija Bogunovic", org: "Rhine AI Lab, University of Basel", url: "mailto:ilija.bogunovic@unibas.ch" }
   ];
   var TEAM_PLACEHOLDER = false; // true shows the lab only, without names
@@ -1675,12 +1650,18 @@ document.documentElement.classList.add("js");
   /* ---------- Static content ---------- */
   document.querySelectorAll("[data-links]").forEach(function (box) {
     var live = LINKS.filter(function (l) { return l.href; }), soon = LINKS.filter(function (l) { return !l.href; });
-    box.innerHTML = live.map(function (l, i) {
-      return '<a class="lk' + (i === 0 ? " pri" : "") + '" href="' + esc(l.href) + '">' + ICON[l.k] + esc(l.label) + "</a>";
-    }).join("") + (soon.length ? '<p class="soonline">' + esc(soon.map(function (l, i) { return i ? l.short.toLowerCase() : l.short; }).join(", ").replace(/, ([^,]*)$/, " and $1")) + " coming soon</p>" : "");
+    box.innerHTML = LINKS.map(function (l, i) {
+      if (l.soon) return '<button type="button" class="lk" data-soon="' + esc(l.label) + '">' + ICON[l.k] + esc(l.label) + "</button>";
+      return '<a class="lk' + (i === 0 ? " pri" : "") + '" href="' + esc(l.href) + '" target="_blank" rel="noopener">' + ICON[l.k] + esc(l.label) + "</a>";
+    }).join("");
+    soon = soon.filter(function (l) { return !l.soon; });
+    box.innerHTML += (soon.length ? '<p class="soonline">' + esc(soon.map(function (l, i) { return i ? l.short.toLowerCase() : l.short; }).join(", ").replace(/, ([^,]*)$/, " and $1")) + " coming soon</p>" : "");
   });
   document.querySelectorAll("[data-links-foot]").forEach(function (box) {
-    box.innerHTML = LINKS.map(function (l) { return l.href ? '<a href="' + esc(l.href) + '">' + esc(l.short) + "</a>" : '<span class="off">' + esc(l.short) + "<i>soon</i></span>"; }).join("");
+    box.innerHTML = LINKS.map(function (l) {
+      if (l.soon) return '<button type="button" class="off" data-soon="' + esc(l.label) + '">' + esc(l.short) + "<i>soon</i></button>";
+      return l.href ? '<a href="' + esc(l.href) + '" target="_blank" rel="noopener">' + esc(l.short) + "</a>" : '<span class="off">' + esc(l.short) + "<i>soon</i></span>";
+    }).join("");
   });
   var today = new Date().toISOString().slice(0, 10);
   document.querySelectorAll("[data-dates]").forEach(function (ol) {
@@ -1975,6 +1956,19 @@ document.documentElement.classList.add("js");
     document.getElementById("lb").innerHTML = '<tr><td colspan="8" class="empty">The results file did not load. Reload the page to try again.</td></tr>';
   });
 
+  (function () {
+    var dlg = document.getElementById("soon-dlg");
+    document.addEventListener("click", function (e) {
+      var b = e.target.closest && e.target.closest("[data-soon]");
+      if (b) {
+        dlg.querySelector("h2").textContent = "The " + b.dataset.soon.toLowerCase() + " is coming soon"; dlg.showModal();
+        var lg = dlg.querySelector(".lift-logo");
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches) { lg.classList.remove("rep"); void lg.offsetWidth; lg.classList.add("rep"); }
+        return;
+      }
+      if (e.target === dlg) dlg.close();
+    });
+  })();
   document.querySelectorAll("a[data-link]").forEach(function (a) {
     var l = LINKS.filter(function (x) { return x.k === a.dataset.link; })[0];
     if (l && l.href) a.href = l.href; else a.insertAdjacentText("afterend", " (link soon)");
