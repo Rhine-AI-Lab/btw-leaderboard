@@ -1,7 +1,11 @@
 # Plan: deployment and submissions
 
-Status, 24 Nov 2026: the leaderboard is built (static, `public/`). The two submission flows are designed below
-but **not implemented**; we agree on them first.
+Status, 24 Nov 2026: the leaderboard is built (static, `public/`). Both forms are drafted in `public/index.html`
+(`#contribute`, `#evaluate`), and `api/submit.js` is a draft function that files them as issues in a private
+repo; it answers 503 until `GITHUB_TOKEN` and `GITHUB_REPO` are set in Vercel.
+
+Release plan (results post, "What next"): 24 Nov harness and prompts; 1 Dec bug-injection pipeline;
+8 Dec all 42 problems. Hosted evaluations are offered until 8 Dec; after that anyone can run the benchmark.
 
 ## 1. Deploy on Vercel with the Cloudflare domain
 
@@ -83,10 +87,10 @@ Submitters run it before sending, which removes most of the back-and-forth.
 
 ## 4. Getting a model evaluated
 
-Our set is private and needs our harness (Harbor, the sandboxed kernel, the clock and pass budget), so **only
-we run it**. Model owners never get the problems. This is how ARC-AGI's Verified testing and Scale's private
-HLE set work, and why Terminal-Bench 2.1 closed community submissions. SWE-bench's model (submitters run it
-and send logs) does not fit a private set.
+Until 8 December the problems are private, so **only we run them** (as ARC-AGI's Verified testing and Scale's
+private HLE set do). After 8 December the problems and pipeline are public: self-run results can come in with
+their trajectories (as SWE-bench does), and the leaderboard should mark rows as *run by us* or *self-run*.
+Results we run are shared with the owner and published only if they agree (form: publish / later / private).
 
 **What we ask for**
 
@@ -111,9 +115,9 @@ short private report. **Not** per-problem trajectories, which would reveal the p
 same protocol; we run it, not the owner; results are published whatever they are, unless the owner withdraws
 before the run starts; no sponsor or model owner gets access to the problems.
 
-**Open question for you**: you mentioned "our release plan". I did not find it in the weightgym repo or my
-notes. Which models we accept, how often we run batches, and whether there is a public/private split (as ARC
-has public / semi-private / private) belong on this page once you decide them.
+**Open questions**: the public harness URL and our Hugging Face org name (the page uses placeholders
+`https://github.com/Rhine-AI-Lab` and `rhine-ai-lab`); whether a later private set will exist to keep hosted
+evaluations meaningful once the 42 problems are public.
 
 ## 5. Next steps
 

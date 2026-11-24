@@ -51,6 +51,7 @@ def main(path):
             "provider": prov[1], "logo": prov[2], "harness": m["harness"], "effort": "highest available",
             "released": rel.get(m["id"]),
             "recovery_per_seed": m["seeds"], "solved_per_seed": m["solved"], "problems": m["np"], "problems_run": nprob,
+            "per_problem": [None if s[1] is None else round(s[1], 4) for s in m["scores"]],
             "domains": {d: (round(statistics.mean(v), 4) if v else None) for d, v in by_dom.items()},
             "domain_counts": {d: len(v) for d, v in by_dom.items()},
             "median_trial": {k: t.get(k) for k in ("time", "passes", "calls", "tok")} if t else None,
@@ -59,7 +60,7 @@ def main(path):
     out = {
         "benchmark": "Bench the Weights", "protocol": "v1", "updated": datetime.date.today().isoformat(),
         "problems": 42, "budget": {"minutes": 25, "forward_passes": 50}, "solved_threshold": SOLVED,
-        "domains": doms, "domain_sizes": {d: len(s) for d, s in data["sizes"]},
+        "domains": doms, "problem_domains": [s[0] for s in data["models"][0]["scores"]], "domain_sizes": {d: len(s) for d, s in data["sizes"]},
         "logos": vendor, "models": models,
     }
     with open("public/data/leaderboard.json", "w") as f:
