@@ -4,7 +4,9 @@ Leaderboard and submission site for [Bench the Weights](https://benchtheweights.
 weight-repair benchmark from Rhine AI Lab. Static site, deployed on Vercel from `main`.
 
 ```
-public/index.html              the leaderboard page (no build step, no framework)
+public/index.html              the whole site: leaderboard, #contribute and #evaluate forms (no build step)
+public/logo.png                the mascot from the blog post (logo and favicon)
+api/submit.js                  draft function that files form submissions as private GitHub issues
 public/data/leaderboard.json   the results it shows
 scripts/export_from_draft.py   regenerates leaderboard.json
 vercel.json                    output dir, clean URLs, www -> apex redirect
