@@ -1193,11 +1193,9 @@ form.tried .choice input:invalid + span b { color: var(--err); }
 }
 /* ---------- Final look: Banner with Big Shoulders ---------- */
 :root[data-design="banner"] { --display: "Big Shoulders Display", "Arial Narrow", sans-serif; --serif: "Big Shoulders Display", "Arial Narrow", sans-serif; --stencil: "Big Shoulders Stencil Display", "Big Shoulders Display", sans-serif; --ui: "Libre Franklin", "Helvetica Neue", Arial, sans-serif; }
-:root[data-design="banner"] :is(.wordmark i, .wordmark .wm-sub i, h1 em, .sh h2, .key > p, .sched h2, .sched .d, .slot .no, .lab b, .aside h1, .aside .dates .d, legend, .lb .rk, .sol b, .sol b small, .sponsor h2) { font-style: normal; font-weight: 800; }
+:root[data-design="banner"] :is(h1 em, .sh h2, .key > p, .sched h2, .sched .d, .slot .no, .lab b, .aside h1, .aside .dates .d, legend, .lb .rk, .sol b, .sol b small, .sponsor h2) { font-style: normal; font-weight: 800; }
 :root[data-design="banner"] :is(.aside, .sponsor) .steps li::before { font-style: normal; font-weight: 800; }
-:root[data-design="banner"] .wordmark { font-weight: 900; letter-spacing: -.01em; text-transform: uppercase; }
-:root[data-design="banner"] .wordmark i { font-size: .62em; margin: 0 .1em 0 0; color: var(--band-2); }
-:root[data-design="banner"] .wordmark .wm-sub { font-size: .38em; letter-spacing: .02em; }
+:root[data-design="banner"] .wordmark { --display: "Instrument Sans", "Helvetica Neue", Arial, sans-serif; --serif: "Instrument Serif", Georgia, serif; }
 :root[data-design="banner"] h1.poster { font-family: var(--display); font-weight: 800; font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; text-transform: uppercase; letter-spacing: .01em; }
 :root[data-design="banner"] h1 em { font-size: 1em; color: var(--band-ink); text-decoration: underline 3px var(--band-2); text-underline-offset: .14em; }
 :root[data-design="banner"] :is(.sh h2, .sponsor h2, .aside h1, legend) { text-transform: uppercase; letter-spacing: .005em; }
