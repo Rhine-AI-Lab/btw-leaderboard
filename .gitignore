@@ -3,3 +3,5 @@
 node_modules
 __pycache__
 *.draft.html
+.impeccable/
+.playwright-mcp/

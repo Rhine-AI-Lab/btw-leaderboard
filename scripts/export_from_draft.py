@@ -12,7 +12,7 @@ import json, re, statistics, sys, datetime, os, glob
 
 SOLVED = 0.75
 PROVIDER = [("gpt-", "OpenAI", "openai"), ("claude-", "Anthropic", "anthropic"), ("gemini-", "Google", "gemini"),
-            ("qwen", "Alibaba", "qwen"), ("glm", "Zhipu AI", "zhipu"), ("deepseek", "DeepSeek", "deepseek")]
+            ("qwen", "Alibaba", "qwen"), ("glm", "Zhipu AI", "zhipu"), ("deepseek", "DeepSeek", "deepseek"), ("mistral", "Mistral AI", "mistral")]
 
 
 def grab(src, name):
